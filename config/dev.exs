@@ -1,13 +1,26 @@
 import Config
 
+hostname = "redacted.us-east-3.psdb.cloud"
+
 # Configure your database
 config :hello_phoenix, HelloPhoenix.Repo,
-  username: "root",
-  password: "",
-  database: "hello_phoenix_dev",
-  hostname: "localhost",
+  username: "redacted",
+  password: "pscale_pw_redacted",
+  database: "your-ps-db-name",
+  hostname: hostname,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 10,
+  migration_lock: false,
+  ssl: true,
+  ssl_opts: [
+    verify: :verify_peer,
+    cacertfile: "/etc/ssl/cert.pem",
+    server_name_indication: String.to_charlist(hostname),
+    customize_hostname_check: [
+      match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+    ]
+  ]
+
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
