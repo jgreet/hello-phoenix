@@ -10,7 +10,6 @@ config :hello_phoenix, HelloPhoenix.Repo,
   hostname: hostname,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
-  migration_lock: false,
   ssl: true,
   ssl_opts: [
     verify: :verify_peer,
